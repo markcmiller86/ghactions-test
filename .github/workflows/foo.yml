@@ -15,9 +15,8 @@ jobs:
       uses: actions/setup-node@v1
     - name: Get File List
       run: |
-        ls -aF
-        ls -aRF
-        FOO=$(which curl)
+        CMD=curl
+        FOO=$(which $CMD)
         echo "BAR=$FOO" >> $GITHUB_ENV
     - name: Test BAR
       run: echo ${BAR}
