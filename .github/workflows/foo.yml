@@ -15,13 +15,7 @@ jobs:
       uses: actions/setup-node@v1
     - name: Get File List
       run: |
-        ls *.md
-        which curl
-        URL="https://${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-        curl -s -H "Accept: application/vnd.github.v3+json" $URL
-        MD_FILES=$(curl -s -H "Accept: application/vnd.github.v3+json" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",')
-        echo ${MD_FILES}
-        echo "PR_MD_FILES=${MD_FILES}" >> $GITHUB_ENV
+        echo "PR_MD_FILES=$(curl -s -H \"Accept: application/vnd.github.v3+json\" https://${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",')" >> $GITHUB_ENV
     - name: Test PR_MD_FILES
       run: echo ${PR_MD_FILES}
     - name: Install dependencies
