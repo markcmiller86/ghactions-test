@@ -15,12 +15,13 @@ jobs:
         npm install -g markdownlint-cli
         npm install -g markdown-spellcheck
         npm install -g markdown-link-validator
+        npm install -g markdown-link-check
     - name: Lint
       run: |
-        markdownlint README.md || exit 1
+        markdownlint ./README.md || exit 1
     - name: Link check
       run: |
-        markdown-link-validator README.md || exit 1
+        markdown-link-check ./README.md || exit 1
     - name: Spell check
       run: |
-        mdspell -a -n -r -x --en-us README.md || exit 1
+        mdspell -a -n -r -x --en-us ./README.md || exit 1
