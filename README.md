@@ -7,4 +7,3 @@ Adding some text to trigger an action.
 Adding some bad markdown.
 
 This is a gorfo.
-
