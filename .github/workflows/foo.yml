@@ -16,7 +16,10 @@ jobs:
         PRFILES="$(curl -s -H "Accept: application/vnd.github.v3+json" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",')"
         ls
         echo $PRFILES
+        echo "FOO=bar" >> $GITHUB_ENV
         echo "PR_MD_FILES=${PRFILES}" >> $GITHUB_ENV
+    - name: Test Foo
+      run: echo ${FOO}
     - name: Install dependencies
       run: |
         npm install -g markdownlint-cli
