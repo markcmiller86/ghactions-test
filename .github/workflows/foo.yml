@@ -20,6 +20,8 @@ jobs:
         npm install -g markdownlint-cli
         npm install -g markdown-spellcheck
         npm install -g markdown-link-check
+    - name: Test
+      run: echo $PR_MD_FILES
     - name: Lint
       run: |
         markdownlint ${PR_MD_FILES} || exit 1
