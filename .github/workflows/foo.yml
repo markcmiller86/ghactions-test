@@ -15,6 +15,7 @@ jobs:
       uses: actions/setup-node@v1
     - name: Get File List
       run: |
+        ping -c 5 www.google.com
         CMD=curl
         FOO=$(which $CMD)
         echo "BAR=$FOO" >> $GITHUB_ENV
