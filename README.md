@@ -4,6 +4,7 @@ Test github actions
 
 Adding some text to trigger an action.
 
-Adding some bad markdown
+Adding some bad markdown.
 
-![]()
+This is a gorfo.
+
