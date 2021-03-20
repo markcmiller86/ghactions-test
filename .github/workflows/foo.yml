@@ -13,8 +13,7 @@ jobs:
     - name: Get File List
       run: |
         URL="https://${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-        PRFILES="$(curl -s -H "Accept: application/vnd.github.v3+json" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",')"
-        ls
+        PRFILES=$(curl -s -H "Accept: application/vnd.github.v3+json" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",')
         echo ${PRFILES}
         echo "PR_MD_FILES=${PRFILES}" >> $GITHUB_ENV
     - name: Test PR_MD_FILES
