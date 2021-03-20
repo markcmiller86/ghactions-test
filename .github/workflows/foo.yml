@@ -16,6 +16,8 @@ jobs:
     - name: Get File List
       run: |
         URL="https://${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
+        JSON=$(curl -s -H "Accept: application/vnd.github.v3+json" $URL)
+        echo ${JSON}
         MD_FILES=$(curl -s -H "Accept: application/vnd.github.v3+json" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",')
         echo ${MD_FILES}
         echo "PR_MD_FILES=${MD_FILES}" >> $GITHUB_ENV
