@@ -7,6 +7,7 @@ jobs:
     steps:
     - name: Do Everything In One Step
       run: |
+        sudo chown -R $USER /usr/local/lib/node_modules
         npm install -g markdownlint-cli
         npm install -g markdown-spellcheck
         npm install -g markdown-link-validator
