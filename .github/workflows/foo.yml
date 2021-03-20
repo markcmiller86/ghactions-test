@@ -1,18 +1,18 @@
+name: Gorfo
+
 on: push
 
 jobs:
-  job1:
-    name: foobar
+  mdchecks:
+    name: Markdown Linter
     runs-on: ubuntu-latest
     steps:
-    - name: Do Everything In One Step
+    - uses: actions/checkout@v2
+    - name: Set up NodeJS Tools
+      uses: actions/setup-node@v1
+    - name: Install dependencies
       run: |
-        CHANGED_MD_FILES=""
-        if [ -z "${TRAVIS_COMMIT_RANGE}" ] ; then
-          CHANGED_MD_FILES="$(git diff --name-only ${TRAVIS_COMMIT} -- | grep "^.*\.md$")"
-        else
-          COMMIT1="$(echo ${TRAVIS_COMMIT_RANGE} | cut -f 1 -d '.')"
-          COMMIT2="$(echo ${TRAVIS_COMMIT_RANGE} | cut -f 4 -d '.')"
-          CHANGED_MD_FILES="$(git diff --name-only ${COMMIT1}..${COMMIT2} -- | grep "^.*\.md$")"
-        fi
-        echo "CHANGED MD FILES = \"${CHANGED_MD_FILES}\""
+        npm install -g markdownlint-cli
+    - name: Lint with markdownlint-cli
+      run: |
+        markdownlint README.md || exit 1
