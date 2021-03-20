@@ -17,9 +17,10 @@ jobs:
       run: |
         ls -aF
         ls -aRF
-        which curl
-    - name: Test PR_MD_FILES
-      run: echo ${PR_MD_FILES}
+        FOO=$(which curl)
+        echo "BAR=$FOO" >> $GITHUB_ENV
+    - name: Test BAR
+      run: echo ${BAR}
     - name: Install dependencies
       run: |
         npm install -g markdownlint-cli
