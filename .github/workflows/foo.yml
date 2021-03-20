@@ -7,10 +7,6 @@ jobs:
     steps:
     - name: Do Everything In One Step
       run: |
-        sudo chown -R $USER /usr/local/lib/node_modules
-        npm install -g markdownlint-cli
-        npm install -g markdown-spellcheck
-        npm install -g markdown-link-validator
         CHANGED_MD_FILES=""
         if [ -z "${TRAVIS_COMMIT_RANGE}" ] ; then
           CHANGED_MD_FILES="$(git diff --name-only ${TRAVIS_COMMIT} -- | grep "^.*\.md$")"
