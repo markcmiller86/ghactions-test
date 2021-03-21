@@ -17,7 +17,9 @@ jobs:
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
         JSON=$(curl -s -H \"Accept: application/vnd.github.v3+json\" $URL)
+        cat $GITHUB_ENV
         echo "BAR=\"$JSON\"" >> $GITHUB_ENV
+        cat $GITHUB_ENV
     - name: Test BAR
       run: echo $BAR
     - name: Install dependencies
