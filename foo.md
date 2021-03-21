@@ -10,7 +10,7 @@
 
 ###### Heading 6
 
-####### Heading 7 
+####### Heading 7
 
 Some code that has a ref[&1]
 
