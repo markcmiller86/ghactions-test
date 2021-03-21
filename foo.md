@@ -17,7 +17,7 @@ Some code that has a ref[&1]
 ## Bad bullet list
 
 * item a
-- item b
-1. item c
+* item b
+* item c
 
 [&1]: https://www.google.com
