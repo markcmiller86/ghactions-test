@@ -8,8 +8,6 @@ Adding some bad [markdown][2].
 
 This is a [a good link](http://kvmesh.org/tut/kvmesh-data-primer/)
 
-This is a [good link](https://www.cultureco-op.com)
-
-This is a gorfo.
+This is a [good link](https://www.foobar.org)
 
 [2]: https://www.llnl.gov
