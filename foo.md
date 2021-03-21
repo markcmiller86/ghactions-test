@@ -1,6 +1,8 @@
 # Foo Test File
 
-#.# Bad Heading
+### Good Heading
+
+####### 7th Level Heading
 
 Some code that has a ref[&1]
 

@@ -7,28 +7,39 @@ on:
 
 jobs:
   mdchecks:
-    name: Markdown Linter
+    name: Markdown Checks
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up NodeJS Tools
       uses: actions/setup-node@v1
-    - name: Get File List
-      run: |
-        URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-        MDFILES=$(curl -s -H \"Accept: application/vnd.github.v3+json\" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",' | grep '^.*.md$' | tr '\n' ' ')
-        echo "PR_MD_FILES=$MDFILES" >> $GITHUB_ENV
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+      # Enable listing of files matching each filter.
+      # Paths to files will be available in `${FILTER_NAME}_files` output variable.
+      # Paths will be escaped and space-delimited.
+      # Output is usable as command line argument list in linux shell
+      list-files: shell
+
+      # In this example changed files will be checked by linter.
+      # It doesn't make sense to lint deleted files.
+      # Therefore we specify we are only interested in added or modified files.
+      filters: |
+        markdown:
+          - added|modified: '*.md'
     - name: Install dependencies
+      if: ${{ steps.filter.outputs.markdown == 'true' }}
       run: |
         npm install -g markdownlint-cli
         npm install -g markdown-spellcheck
         npm install -g markdown-link-check
-    - name: Lint
-      run: |
-        markdownlint $PR_MD_FILES || exit 1
+    - name: Lint check
+      if: ${{ steps.filter.outputs.markdown == 'true' }}
+      run: markdownlint ${{ steps.filter.outputs.markdown_files }}
     - name: Link check
-      run: |
-        markdown-link-check $PR_MD_FILES || exit 1
+      if: ${{ steps.filter.outputs.markdown == 'true' }}
+      run: markdown-link-check ${{ steps.filter.outputs.markdown_files }}
     - name: Spell check
-      run: |
-        mdspell -a -n -r -x --en-us $PR_MD_FILES || exit 1
+      if: ${{ steps.filter.outputs.markdown == 'true' }}
+      run: mdspell -a -n -r -x --en-us ${{ steps.filter.outputs.markdown_files }}
