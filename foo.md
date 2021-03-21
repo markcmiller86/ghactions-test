@@ -1,9 +1,23 @@
-# Foo Test File
+# Heading 1
 
-### Good Heading
+## Heading 2
 
-####### 7th Level Heading
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+###### Heading 6
+
+####### Heading 7 
 
 Some code that has a ref[&1]
+
+## Bad bullet list
+
+* item a
+- item b
+1. item c
 
 [&1]: https://www.google.com
