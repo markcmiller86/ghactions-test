@@ -15,8 +15,10 @@ jobs:
       uses: actions/setup-node@v1
     - name: Get File List
       run: |
-        wget https://github.com/markcmiller86/silo-issues/wiki/Arbitrary_Polygons_and_Polyhedra_in_Silo
-        cat Arbitrary_Polygons_and_Polyhedra_in_Silo
+        URL="https://${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
+        curl -v -s -H "Accept: application/vnd.github.v3+json" $URL
+        JSON=$(curl -v -s -H "Accept: application/vnd.github.v3+json" $URL)
+        echo ${JSON}
         CMD=curl
         FOO=$(which $CMD)
         echo "BAR=$FOO" >> $GITHUB_ENV
