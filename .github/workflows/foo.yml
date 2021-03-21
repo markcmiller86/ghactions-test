@@ -16,12 +16,8 @@ jobs:
     - name: Get File List
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-        JSON=$(curl -s -H \"Accept: application/vnd.github.v3+json\" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",' | grep '^.*.md$' | tr '\n' ' ')
-        cat $GITHUB_ENV
-        echo "BAR=\"$JSON\"" >> $GITHUB_ENV
-        cat $GITHUB_ENV
-    - name: Test BAR
-      run: echo $BAR
+        MDFILES=$(curl -s -H \"Accept: application/vnd.github.v3+json\" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",' | grep '^.*.md$' | tr '\n' ' ')
+        echo "PR_MD_FILES=\"$MDFILES\"" >> $GITHUB_ENV
     - name: Install dependencies
       run: |
         npm install -g markdownlint-cli
@@ -29,10 +25,10 @@ jobs:
         npm install -g markdown-link-check
     - name: Lint
       run: |
-        markdownlint ${PR_MD_FILES} || exit 1
+        markdownlint $PR_MD_FILES || exit 1
     - name: Link check
       run: |
-        markdown-link-check ${PR_MD_FILES} || exit 1
+        markdown-link-check $PR_MD_FILES || exit 1
     - name: Spell check
       run: |
-        mdspell -a -n -r -x --en-us ${PR_MD_FILES} || exit 1
+        mdspell -a -n -r -x --en-us $PR_MD_FILES || exit 1
