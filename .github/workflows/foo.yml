@@ -15,7 +15,8 @@ jobs:
       uses: actions/setup-node@v1
     - name: Get File List
       run: |
-        ping -c 5 www.google.com
+        wget https://github.com/markcmiller86/silo-issues/wiki/Arbitrary_Polygons_and_Polyhedra_in_Silo
+        cat Arbitrary_Polygons_and_Polyhedra_in_Silo
         CMD=curl
         FOO=$(which $CMD)
         echo "BAR=$FOO" >> $GITHUB_ENV
