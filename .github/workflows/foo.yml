@@ -17,13 +17,11 @@ jobs:
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
         curl -v -s -H "Accept: application/vnd.github.v3+json" $URL
-        JSON=$(curl -v -s -H "Accept: application/vnd.github.v3+json" $URL)
-        echo ${JSON}
-        CMD=curl
-        FOO=$(which $CMD)
-        echo "BAR=$JSON" >> $GITHUB_ENV
+        JSON=$(curl -s -H "Accept: application/vnd.github.v3+json" $URL)
+        echo $JSON
+        echo "BAR=\"$JSON\"" >> $GITHUB_ENV
     - name: Test BAR
-      run: echo ${BAR}
+      run: echo $BAR
     - name: Install dependencies
       run: |
         npm install -g markdownlint-cli
