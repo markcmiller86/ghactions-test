@@ -28,13 +28,13 @@ jobs:
     - name: Skip Ignore Files
       id: keep
       run: |
-        mdfiles=""
-        for f in ${{ steps.filter.outputs.markdown_files }}; do
-          if [[ -n "$(grep BSSW_GITHUB_CI_IGNORE_MD_CHECKS $f)" ]]; then
-            continue
-          fi
-          mdfiles="$mdfiles $f"
-        done
+        mdfiles=""; \
+        for f in ${{ steps.filter.outputs.markdown_files }}; do \
+          if [[ -n "$(grep BSSW_GITHUB_CI_IGNORE_MD_CHECKS $f)" ]]; then \
+            continue; \
+          fi; \
+          mdfiles="$mdfiles $f"; \
+        done; \
         echo ::set-output name=keep_files::${mdfiles}
     - name: Install MD Tools
       if: ${{ steps.keep.outputs.keep_files != '' }}
