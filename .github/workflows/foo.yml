@@ -17,7 +17,7 @@ jobs:
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
         MDFILES=$(curl -s -H \"Accept: application/vnd.github.v3+json\" $URL | grep '^ *"filename": ' | tr -d ' ' | cut -d':' -f2 | tr -d '",' | grep '^.*.md$' | tr '\n' ' ')
-        echo "PR_MD_FILES=\"$MDFILES\"" >> $GITHUB_ENV
+        echo "PR_MD_FILES=$MDFILES" >> $GITHUB_ENV
     - name: Install dependencies
       run: |
         npm install -g markdownlint-cli
