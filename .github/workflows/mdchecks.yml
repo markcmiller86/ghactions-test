@@ -10,10 +10,13 @@ jobs:
     name: Markdown Checks
     runs-on: ubuntu-latest
     steps:
+
     - name: Checkout the Repo 
       uses: actions/checkout@v2
+
     - name: Set up NodeJS
       uses: actions/setup-node@v1
+
     - name: Get MD files in this PR
       uses: dorny/paths-filter@v2
       id: filter
@@ -23,6 +26,7 @@ jobs:
         filters: |
           markdown:
             - added|modified: '*.md'
+
       # This step filters the files further removing any from consideration that
       # include the string `BSSW_GITHUB_CI_IGNORE_MD_CHECKS` anywhere.
     - name: Skip Ignore Files
@@ -36,18 +40,22 @@ jobs:
           mdfiles="$mdfiles $f"
         done
         echo ::set-output name=keep_files::${mdfiles}
+
     - name: Install MD Tools
       if: ${{ steps.keep.outputs.keep_files != '' }}
       run: |
         npm install -g markdownlint-cli
         npm install -g markdown-spellcheck
         npm install -g markdown-link-check
+
     - name: Lint check
       if: ${{ steps.keep.outputs.keep_files != '' }}
       run: markdownlint ${{ steps.keep.outputs.keep_files }}
+
     - name: Link check
       if: ${{ steps.keep.outputs.keep_files != '' }}
       run: markdown-link-check ${{ steps.keep.outputs.keep_files }}
+
     - name: Spell check
       if: ${{ steps.keep.outputs.keep_files != '' }}
       run: mdspell -a -n -r -x --en-us ${{ steps.keep.outputs.keep_files }}
