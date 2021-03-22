@@ -58,4 +58,10 @@ jobs:
 
     - name: Spell check
       if: ${{ steps.keep.outputs.keep_files != '' }}
-      run: mdspell -a -n -r -x --en-us ${{ steps.keep.outputs.keep_files }}
+      run: |
+        cp .spelling .spelling.orig
+        for f in ${{ steps.keep.outputs.keep_files }}; do 
+          sed -n '/^<\!-- BSSW_GITHUB_CI_MDSPELL_WORDS/,/-->/p' $f | grep -v -e '--' > .spelling
+          cat .spelling.orig >> .spelling
+          mdspell -a -n -r -x --en-us $f || exit 1
+        done
