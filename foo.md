@@ -14,6 +14,8 @@
 
 Some code that has a ref[&1]
 
+This is a gorfo world.
+
 ## Bad bullet list
 
 * item a
@@ -21,3 +23,7 @@ Some code that has a ref[&1]
 * item c
 
 [&1]: https://www.google.com
+
+<!-- BSSW_GITHUB_CI_MDSPELL_WORDS
+gorfo
+-->
