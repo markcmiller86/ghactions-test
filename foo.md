@@ -25,5 +25,5 @@ This is a gorfo world.
 [&1]: https://www.google.com
 
 <!-- BSSW_GITHUB_CI_MDSPELL_WORDS
-bar
+gorfo
 -->
