@@ -13,7 +13,7 @@ jobs:
     - name: Checkout the Repo 
     - uses: actions/checkout@v2
     - name: Set up NodeJS
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
     - name: Get MD files in this PR
     - uses: dorny/paths-filter@v2
       id: filter
